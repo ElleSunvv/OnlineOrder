@@ -23,7 +23,7 @@ public class DBUtil {
         }  
     	
         try {
-            connection = DriverManager.getConnection(connStr,"root","lyx19991126");
+            connection = DriverManager.getConnection(connStr,"root","password");
             System.out.println("Success connect Mysql server!");  
         }
         catch (SQLException e){
