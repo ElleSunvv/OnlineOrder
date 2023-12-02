@@ -6,14 +6,12 @@ public class DishItem {
 	private String dishName;
 	private Double unitPrice;
 	private String imageUri;
-	private static int dishNum;
 	
 	public DishItem(Category category, String dishName, Double unitPrice, String imageUri) {
 		this.category = category;
 		this.dishName = dishName;
 		this.unitPrice = unitPrice;
 		this.imageUri = imageUri;
-		dishNum++;
 	}
 	
 	public DishItem(Category category, Integer dishId, String dishName, Double unitPrice, String imageUri) {
@@ -22,7 +20,6 @@ public class DishItem {
 		this.dishName = dishName;
 		this.unitPrice = unitPrice;
 		this.imageUri = imageUri;
-		dishNum++;
 	}
 	
 	public Integer getDishId() {
@@ -39,10 +36,6 @@ public class DishItem {
 	
 	public String getImageUri() {
 		return imageUri;
-	}
-	
-	public static int getDishNum() {
-		return dishNum;
 	}
 	
 	public Integer getCategoryId() {
@@ -81,7 +74,6 @@ public class DishItem {
 class Category {
 	private Integer categoryId;
 	private String categoryName;
-	private static int categoryNum;
 	
 	public Category(Integer categoryId, String categoryName) {
 		setCategoryId(categoryId);
@@ -90,11 +82,6 @@ class Category {
 
 	public Category(String categoryName) {
 		setCategoryName(categoryName);
-		categoryNum++;
-	}
-
-	public static Integer getCategoryNum() {
-		return categoryNum;
 	}
 
 	public String toString() {
@@ -109,20 +96,12 @@ class Category {
 		return categoryId;
 	}
 	
-	public int categoryIdProperty() {
-		return categoryId;
-	}
-	
 	// setter categoryName
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
 	// getter categoryName
 	public String getCategoryName() {
-		return categoryName;
-	}
-	
-	public String categoryNameProperty() {
 		return categoryName;
 	}
 }

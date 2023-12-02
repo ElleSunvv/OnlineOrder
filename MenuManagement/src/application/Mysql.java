@@ -3,9 +3,6 @@ package application;
 import java.sql.*;
 import java.util.ArrayList;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 public class Mysql {
 
 	public Mysql() {
@@ -24,7 +21,7 @@ public class Mysql {
 	public static Connection getConnection() {
 		try {
 			System.out.println("start connecting");
-			return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/mySql","root","54sl54SL!!");
+			return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/mySql","root","543678");
 		} catch(SQLException e) {
 			e.printStackTrace();  
 			throw new RuntimeException("Success connect Mysql server!");

@@ -23,6 +23,7 @@ public class Main extends Application {
 		
 		Button menuListForCustomer = new Button("Order Menu");
 		Button orderList = new Button("Order List");
+//		To add all menu buttons
 		
 		HBox adminMenu = new HBox();
 		HBox customerMenu = new HBox();
@@ -75,6 +76,7 @@ public class Main extends Application {
 		OrderMenu.getContinuedButton().setOnAction(e -> {
 			showSceneBuilder(primaryStage, "Main.fxml", "User List");
 		});
+		
 	}
 	
 	public Pane setMainPane(Pane adminMenu, Pane selectedPane, Pane customerMenu ) {

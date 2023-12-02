@@ -59,7 +59,7 @@ public class CategoryList extends VBox {
 		setMargin(tableButtons, new Insets(10));
 		setMargin(table, new Insets(10));
 		
-		addButton.setOnAction(new ShowEditDialogHandler());
+		addButton.setOnAction(new ShowEditCategoryDialogHandler());
 		deleteButton.setOnAction(new DeleteCategoryHandler());
 	}
 
@@ -120,7 +120,7 @@ public class CategoryList extends VBox {
 		}
 	}
 	 
-	class ShowEditDialogHandler implements EventHandler<ActionEvent>{
+	class ShowEditCategoryDialogHandler implements EventHandler<ActionEvent>{
 		@Override
 		public void handle(ActionEvent event) {
 			editCategoryDialogStage.showEditDialog();
