@@ -1,4 +1,0 @@
-coffee
-images/defaultimage.jpeg
-44
-0.0

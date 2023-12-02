@@ -9,12 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 	private Pane selectedPane = new MenuList();
-	private String title = "Menu List";
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -29,6 +27,7 @@ public class Main extends Application {
 		HBox adminMenu = new HBox();
 		HBox customerMenu = new HBox();
 		
+//	-----	isCustomer and isAdmin value TBD;
 		boolean isCustomer = true;
 		boolean isAdmin = true;
 		
@@ -48,25 +47,21 @@ public class Main extends Application {
 		customerMenu.setSpacing(10);
 		customerMenu.getChildren().addAll(menuListForCustomer, orderList);
 		
-
-		showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), title);
+		showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Menu List");
 		
 		menuListForAdmin.setOnAction(e -> {
-			title = "Menu List";
 			selectedPane = new MenuList();
-			showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), title);
+			showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Menu List");
 		});
 		
 		categoryList.setOnAction(e -> {
-			title = "Category List";
 			selectedPane = new CategoryList();
-			showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), title);
+			showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Category List");
 		});
 		
 		menuListForCustomer.setOnAction(e -> {
-			title = "Order Menu";
 			selectedPane = new OrderMenu();
-			showCustomerScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), title);
+			showCustomerScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Order Menu");
 		});
 		
 		workStation.setOnAction(e -> {
@@ -77,6 +72,9 @@ public class Main extends Application {
 			showSceneBuilder(primaryStage, "Main.fxml", "User List");
 		});
 		
+		OrderMenu.getContinuedButton().setOnAction(e -> {
+			showSceneBuilder(primaryStage, "Main.fxml", "User List");
+		});
 	}
 	
 	public Pane setMainPane(Pane adminMenu, Pane selectedPane, Pane customerMenu ) {
@@ -107,7 +105,7 @@ public class Main extends Application {
 		try {
 			Parent root = 
 					FXMLLoader.load(getClass().getResource(fxmlLink));
-			Scene scene = new Scene(root, 400, 400);
+			Scene scene = new Scene(root, 600, 500);
 			stage.setTitle(title);
 			stage.setScene(scene);
 			stage.show();

@@ -10,7 +10,6 @@ public class DishItem {
 	
 	public DishItem(Category category, String dishName, Double unitPrice, String imageUri) {
 		this.category = category;
-//		this.dishId = category.getCategoryId() + dishNum;
 		this.dishName = dishName;
 		this.unitPrice = unitPrice;
 		this.imageUri = imageUri;
@@ -47,12 +46,10 @@ public class DishItem {
 	}
 	
 	public Integer getCategoryId() {
-//		return super.getCategoryId();
 		return category.getCategoryId();
 	}
 	
 	public String getCategoryName() {
-//		return super.getCategoryName();
 		return category.getCategoryName();
 	}
 	
@@ -82,14 +79,9 @@ public class DishItem {
 }
 
 class Category {
-//	private String categoryId;
 	private Integer categoryId;
 	private String categoryName;
-	private static int categoryNum = 1;
-	
-//	public Category() {
-//		
-//	}
+	private static int categoryNum;
 	
 	public Category(Integer categoryId, String categoryName) {
 		setCategoryId(categoryId);
@@ -97,7 +89,6 @@ class Category {
 	}
 
 	public Category(String categoryName) {
-//		setCategoryId("c" + categoryNum);
 		setCategoryName(categoryName);
 		categoryNum++;
 	}
