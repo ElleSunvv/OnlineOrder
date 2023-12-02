@@ -97,7 +97,7 @@ public class CategoryList extends VBox {
 					e.printStackTrace();
 				}
 			} else {
-				System.out.println("category already existed: " + category.getCategoryName());
+				new ShowDialog("Category already existed: " + category.getCategoryName());
 			}
 	}
 	
@@ -116,7 +116,7 @@ public class CategoryList extends VBox {
    				e.printStackTrace();
    			}
     	} else {
-			System.out.println("Please select a category item");
+			new ShowDialog("Please select a category item");
 		}
 	}
 	 

@@ -6,6 +6,7 @@ import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -123,7 +124,7 @@ public class MenuList extends VBox {
     				observableDishItems.add(new DishItem(new Category(categoryID, categoryName), dishName, unitPrice, imageURI));
     				System.out.println("Data found");
     			} else {
-    				System.out.println("No data found");
+    				new ShowDialog("No data found!");
     			}
     		}
     	} catch (SQLException e) {
@@ -131,7 +132,8 @@ public class MenuList extends VBox {
     	}
     }
     
-    public static void addDishItem(DishItem dishItem) {
+    public static boolean addDishItem(DishItem dishItem) {
+    	boolean isAddValid = true;
 		if (!Mysql.isDishItemExisted(dishItem)) {
 			observableDishItems.add(dishItem);
 	    	try (Connection connect = Mysql.getConnection();
@@ -164,15 +166,18 @@ public class MenuList extends VBox {
 		   		e.printStackTrace();
 		   	}
 		} else {
-			System.out.println("\"" + dishItem.getDishName() + "\" already exists, please change dish name!");
+			isAddValid = false;
+			new ShowDialog("\"" + dishItem.getDishName() + "\" already exists, please change dish name!");
 		}
+		return isAddValid;
     }
     
-    public static void editDishItem(DishItem dishItem, Category category, String dishName, Double unitPrice, String imageUri) {
+    public static boolean editDishItem(DishItem dishItem, Category category, String dishName, Double unitPrice, String imageUri) {
     	DishItem selectedDishItem = table.getSelectionModel().getSelectedItem();
+    	boolean isEditValid = true;
     	if ( (!selectedDishItem.getDishName().equals(dishName) && !Mysql.isDishItemExisted(dishItem)) ||
     			selectedDishItem.getDishName().equals(dishName)
-    			) {
+    			){
     		selectedDishItem.setCategory(category);
 	    	selectedDishItem.setDishName(dishName);
 	    	selectedDishItem.setUnitPrice(unitPrice);
@@ -195,8 +200,10 @@ public class MenuList extends VBox {
 				e.printStackTrace();
 	   			}
 	    	} else if (!dishName.equals(selectedDishItem.getDishName()) && Mysql.isDishItemExisted(dishItem)){
-				System.out.println("\"" + dishItem.getDishName() + "\" already exists, please change dish name!");
-				} 
+	    		isEditValid = false;
+				new ShowDialog("\"" + dishItem.getDishName() + "\" already exists, please change dish name!");
+				}
+    	return isEditValid;
     }
     
     public void deleteDishItem() {
@@ -214,7 +221,7 @@ public class MenuList extends VBox {
    				e.printStackTrace();
    			}
     	} else {
-			System.out.println("Please select a dish item");
+			new ShowDialog("Please select a dish item!");
 		}
     }
 }
@@ -261,7 +268,12 @@ class EditDishItemDialogStage extends Stage {
 		editDishItemPane.add(new Label("Required is marked * ."), 0, 5);
 		editDishItemPane.add(confirmButton, 1, 6);
 		
-		uploadButton.setOnAction(new UploadImageHandler());
+		uploadButton.setOnAction(event -> {
+			Platform.runLater(() -> {
+				new UploadImageHandler().handle(event);
+			});
+		});
+				
 		confirmButton.setOnAction(new ConfirmHandler());
 		
 		Scene editDialogScene = new Scene(editDishItemPane, 400, 300);
@@ -296,7 +308,7 @@ class EditDishItemDialogStage extends Stage {
 				setDialogInput(selectedDishItem.getCategory(), selectedDishItem.getDishName(), selectedDishItem.getUnitPrice().toString());
 			} else {
 				modeSelectionValid = false;
-				System.out.println("Please select an item");
+				new ShowDialog("Please select an item!");
 			}
 		}
 		return modeSelectionValid;
@@ -319,43 +331,36 @@ class EditDishItemDialogStage extends Stage {
 				System.out.println("File selection canceled.");
 			}
 			imageView.setImage(image);
-			imageUri = selectedFile.toURI().toString();
+			imageUri = selectedFile != null ? selectedFile.toURI().toString() : "images/defaultimage.jpeg";
 		}
 	}
 	
 	class ConfirmHandler implements EventHandler<ActionEvent>{
 		@Override
 		public void handle(ActionEvent event) {
+			boolean isConfirmValid = true;
 			category = categorySelection.getValue();
 			dishName = dishNameInput.getText();
-			try {
-				unitPrice = Double.parseDouble(unitPriceInput.getText());
-			} catch (NumberFormatException e){
-				System.out.println("Invalid input, unitPrice should be numbers");
-			}
 			if (category.toString().isEmpty() || dishName.isEmpty() || unitPriceInput.getText().isEmpty()) {
-				System.out.println("Empty input");
+				new ShowDialog("Data not completed for all requests！");
 			} else {
-				DishItem newDishItem = new DishItem(category, dishName, unitPrice, imageUri);
-				if (mode == Mode.ADD) {
-					MenuList.addDishItem(newDishItem);
-				} else if(mode == Mode.EDIT) {
-					MenuList.editDishItem(newDishItem, category, dishName, unitPrice, imageUri);
+				try {
+					unitPrice = Double.parseDouble(unitPriceInput.getText());
+					DishItem newDishItem = new DishItem(category, dishName, unitPrice, imageUri);
+					if (mode == Mode.ADD) {
+						isConfirmValid = MenuList.addDishItem(newDishItem);
+					} else if(mode == Mode.EDIT) {
+						isConfirmValid = MenuList.editDishItem(newDishItem, category, dishName, unitPrice, imageUri);
+					}
+					if (isConfirmValid) {
+						closeEditDialog();
+					}
+				} catch (NumberFormatException e){
+					new ShowDialog("Invalid input, unitPrice should be numbers!");
 				}
-				categorySelection.setValue(category);
-				closeEditDialog();
 			}
 		}
 	}
-	
-//	class WarningStage extends Stage{
-//		private String warningStmt;
-//		
-//		public WarningStage(String warningStmt) {
-//			this.warningStmt = warningStmt;
-//		}
-//	}
-   
 }
 
 
