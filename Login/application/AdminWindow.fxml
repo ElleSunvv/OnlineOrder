@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.CardPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="773.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <CardPane layoutX="67.0" layoutY="49.0">
+          <Label style="-fx-padding:10;" text="Customer" />
+          <Label style="-fx-padding:10;" text="Order" />
+          <Label style="-fx-padding:10;" text="Dish Control" />
+      </CardPane>
+   </children>
+</AnchorPane>
