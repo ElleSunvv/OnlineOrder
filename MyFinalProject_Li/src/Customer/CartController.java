@@ -31,7 +31,7 @@ import javafx.util.Callback;
 public class CartController {
 	@FXML private ListView<DishDetail> dish_list;
 	@FXML private Label total_price;
-	private String user_id = "1ee8464a-8bc9-11ee-9b12-778b54051971";
+	private String user_id = String.valueOf(UserDAO.userId);
 	private HashMap<DishItem, Integer> dish_map = new HashMap<>();
 	private ObservableList<DishDetail> data_list;
 	

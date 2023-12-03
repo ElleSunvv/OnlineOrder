@@ -27,7 +27,7 @@ import javafx.util.Callback;
 public class OrderController {
 	@FXML private ImageView user_img;
 	@FXML private ListView<Order> order_list = new ListView<>();
-	private String user_id = "1ee8464a-8bc9-11ee-9b12-778b54051971";
+	private String user_id = String.valueOf(UserDAO.userId);
 	
 	@FXML
 	private void initialize() throws Exception {

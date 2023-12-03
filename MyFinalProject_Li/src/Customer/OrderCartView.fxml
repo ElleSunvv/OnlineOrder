@@ -4,13 +4,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Customer.CartController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" stroke="BLACK" strokeType="INSIDE" width="400.0" />
-      <Label layoutX="171.0" layoutY="17.0" text="Order Cart" />
-      <ListView fx:id="dish_list" layoutY="50.0" prefHeight="500.0" prefWidth="400.0" />
+      <ListView fx:id="dish_list" layoutY="-1.0" prefHeight="551.0" prefWidth="400.0" />
       <Button layoutX="45.0" layoutY="560.0" mnemonicParsing="false" onAction="#backToMenu" prefWidth="100.0" text="Back" />
       <Button layoutX="255.0" layoutY="560.0" mnemonicParsing="false" onAction="#addOrder" prefWidth="100.0" text="Checkout" />
       <Label layoutX="154.0" layoutY="523.0" text="Total: " />

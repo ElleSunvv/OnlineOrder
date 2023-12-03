@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Admin.UserListController">
+   <children>
+      <TableView fx:id="tableView" layoutX="65.0" layoutY="53.0" prefHeight="293.0" prefWidth="487.0">
+        <columns>
+          <TableColumn fx:id="userIdColumn" prefWidth="200.66669464111328" text="User Id" />
+          <TableColumn fx:id="userNameColumn" prefWidth="223.3333740234375" text="User Name" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
