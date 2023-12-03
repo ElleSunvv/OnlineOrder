@@ -113,7 +113,7 @@ public class UserDAO {
 
 	        return userMap;
 	    }
-	 /* public static void main(String[] args) {
+	  /*public static void main(String[] args) {
 	        UserDAO userDAO = new UserDAO();
 	        Map<Integer, String> userMap = userDAO.getalluser();
 
@@ -122,5 +122,29 @@ public class UserDAO {
 	            System.out.println("User ID: " + entry.getKey() + ", User Name: " + entry.getValue());
 	        }
 	    }*/
+	  public int findUserId(String userName, String password) {
+		    try {
+		        String sql = "SELECT userId FROM db WHERE userName = ? AND password = ?";
+		        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+		            statement.setString(1, userName);
+		            statement.setString(2, password);
+
+		            try (ResultSet resultSet = statement.executeQuery()) {
+		                if (resultSet.next()) {
+		                    return resultSet.getInt("userId"); 
+		                }
+                        else {
+		                    return -1;
+		                }
+		            }
+		        }
+		    } catch (SQLException e) {
+		        System.err.println("Error during authentication: " + e.getMessage());
+		        e.printStackTrace();
+		        
+		        
+		return -1; 
+		    }
+		}
 	}
 

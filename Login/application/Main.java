@@ -33,6 +33,7 @@ public class Main extends Application {
     	 user.testConnection();
         launch(args);
         /*UserDAO userDAO = new UserDAO();
+         
         Map<Integer, String> userMap = userDAO.getalluser();
 
         // Print the content of userMap
@@ -40,6 +41,11 @@ public class Main extends Application {
             System.out.println("User ID: " + entry.getKey() + ", User Name: " + entry.getValue());
         }
        */
+     
+       /* UserDAO userDAO = new UserDAO();
+        
+        int a = userDAO.findUserId("Admin","aaa");
+        System.out.println(a); */      
    
 }
 }

@@ -56,4 +56,19 @@ public class UserControl {
     }
 
 }
+@FXML public  void backtoAdminPage(ActionEvent event) throws Exception {
+    try {
+        Parent root = FXMLLoader.load(getClass().getResource("AdminControlmain.fxml"));
+        Scene create = new Scene(root);
+        //gets stage information
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(create);
+        window.show();
+
+    }catch (Exception e){
+        System.out.println("Error occured ");
+        e.printStackTrace();
+        throw e;
+    }
+}
 }
