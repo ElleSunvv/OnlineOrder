@@ -27,22 +27,22 @@
       </Text>
       <ImageView fitHeight="77.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/meituan.png" />
+            <Image url="@../images/meituan.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="84.0" fitWidth="83.0" layoutX="517.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/meituan.png" />
+            <Image url="@../images/meituan.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="77.0" fitWidth="97.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/meituan.png" />
+            <Image url="@../images/meituan.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="83.0" fitWidth="83.0" layoutX="517.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/meituan.png" />
+            <Image url="@../images/meituan.png" />
          </image>
       </ImageView>
    </children>
