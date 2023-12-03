@@ -63,12 +63,11 @@ public class OrderController {
 									try {
 										setOrderCanceled(item);
 									} catch (Exception e1) {
-										// TODO Auto-generated catch block
 										e1.printStackTrace();
 									}
 								}
 							});
-							pane.add(statusBtn, 1, 0);
+							pane.add(statusBtn, 0, 1);
 							
 							TableView<OrderDetail> dishes_table = new TableView<>();
 							ObservableList<OrderDetail> detailMap = generateDetailData(item.getDishesMap());
@@ -85,13 +84,13 @@ public class OrderController {
 							quantity.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getNum()));
 							quantity.prefWidthProperty().bind(dishes_table.widthProperty().divide(2));
 							
-							pane.add(dishes_table, 0, 1);
+							pane.add(dishes_table, 0, 2);
 							
 							Label total_cost = new Label("Total: $" + item.getTotalCost());
-							pane.add(total_cost, 0, 2);
+							pane.add(total_cost, 0, 3);
 							
 							Label time = new Label("Order Placed: " + item.getOrderTime());
-							pane.add(time, 0, 3);
+							pane.add(time, 0, 4);
 							
 							this.setGraphic(pane);
 						}
@@ -106,10 +105,8 @@ public class OrderController {
 		try {
 			Customer.OrderDAO.updateOrderStatus(item.getOrderId(), 2);
 		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} finally {
 			refreshData();

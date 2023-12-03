@@ -2,11 +2,8 @@ package Base;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.UUID;
-
 public class Order {
 	private String orderId;
 	private String userId;
@@ -14,26 +11,6 @@ public class Order {
 	private String time;
 	private HashMap<String, Integer> dishes; 	//key: dish name, value: dish count
 	private double totalCost;
-	
-	public Order() {
-		
-	}
-	
-	public Order(String userId, HashMap<String, Integer> dishes, double cost) {
-		this.orderId = UUID.randomUUID().toString();
-
-		this.userId = userId;
-		
-		this.status = 0;
-		
-		Date now = new Date();
-	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	    this.time = formatter.format(now);
-		
-		this.dishes = dishes;
-		
-		this.totalCost = cost;
-	}
 	
 	public String getOrderId() {
 		return this.orderId;

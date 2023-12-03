@@ -26,15 +26,15 @@ import javafx.scene.text.Text;
 public class OrderMenu extends BorderPane {
 	private ScrollPane scrollPane = new ScrollPane();
 	private TabPane tabPane = new TabPane();
-	private ArrayList<Category> categoryItems = Mysql.getCategoryItemsFromDatabase();
-	private ArrayList<DishItem> dishItems = Mysql.getDishItemsFromDatabase();
+	private ArrayList<Category> categoryItems = MenuDAO.getCategoryItemsFromDatabase();
+	private ArrayList<DishItem> dishItems = MenuDAO.getDishItemsFromDatabase();
 	private HBox goToPay = new HBox();
-	private Button payButton = new Button("Pay");
+	private static Button continueButton = new Button("Continue");
 	private static Integer totalNum = 0;
 	private static Double totalPrice = 0.0;
 	private static Text showTotalNum = new Text("0");
 	private static Text showTotalPrice = new Text("0.0");
-	private static HashMap<DishItem, Integer> addedDishItems = new HashMap<>();
+	private static HashMap<DishItem, Integer> addedDishItems = new HashMap<DishItem, Integer>();
 
 	public OrderMenu() {
 		for (Category category: categoryItems) {
@@ -57,7 +57,7 @@ public class OrderMenu extends BorderPane {
 		SimpleDoubleProperty scrollValue = new SimpleDoubleProperty();
         scrollValue.bindBidirectional(scrollPane.vvalueProperty());
 		
-		goToPay.getChildren().addAll(showTotalNum, new Label(" items: $ "), showTotalPrice, payButton);
+		goToPay.getChildren().addAll(showTotalNum, new Label(" items: $ "), showTotalPrice, continueButton);
 		
 		showTotalNum.setFont(new Font(20));
 		showTotalPrice.setFont(new Font(20));
@@ -65,17 +65,18 @@ public class OrderMenu extends BorderPane {
 		showTotalPrice.setFill(Color.RED);
 		
 //		go to order cart page TBD
-		payButton.setOnAction(e -> {
-			for(DishItem dishItem: OrderMenu.getAddedDishItems().keySet()) {
-				System.out.println("dishItem: " + dishItem.getDishName() + ", unit price is: " + dishItem.getUnitPrice());
-			}
-		});
-
+//		continueButton.setOnAction(e -> {
+//			setIsContinued(true);
+////			for(DishItem dishItem: OrderMenu.getAddedDishItems().keySet()) {
+////				System.out.println("dishItem: " + dishItem.getDishName() + 
+////						", unit price is: " + dishItem.getUnitPrice() + 
+////						", quantity is: " + OrderMenu.getAddedDishItems().get(dishItem));
+////			}
+//		});
+//		
 		setCenter(scrollPane);
 		setBottom(goToPay);
 		setMargin(goToPay, new Insets(10));
-		
-
 	}
 	
 	public static void addTotalNum() {
@@ -105,14 +106,18 @@ public class OrderMenu extends BorderPane {
 	public static void setAddedDishItems(DishItem dishItem) {
 		if (addedDishItems.containsKey(dishItem)) {
 			int currentQuantity = addedDishItems.get(dishItem);
-			addedDishItems.put(dishItem,currentQuantity + 1);
+			addedDishItems.put(dishItem, currentQuantity + 1);
 		} else {
 			addedDishItems.put(dishItem, 1);
-		}
+		}	
 	}
 	
 	public static HashMap<DishItem, Integer> getAddedDishItems(){
 		return addedDishItems;
+	}
+
+	public static Button getContinuedButton() {
+		return continueButton;
 	}
 }
 

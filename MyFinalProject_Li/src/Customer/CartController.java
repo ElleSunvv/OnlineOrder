@@ -7,12 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import Base.Category;
 import Base.DishItem;
-import Base.Order;
-import Base.OrderDetail;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,14 +15,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -38,20 +35,11 @@ public class CartController {
 	private HashMap<DishItem, Integer> dish_map = new HashMap<>();
 	private ObservableList<DishDetail> data_list;
 	
-//	测试数据
-//	Category category = new Category();
-//	DishItem d1 = new DishItem(category, "milk", 3.0, "dog.png");
-//	DishItem d2 = new DishItem(category, "pizza", 20.0, "dog.png");
-
 	@FXML
 	private void initialize() throws Exception {
 		DBUtil.DBUtil.dbConnect();
 		
 		dish_map = OrderMenu.getAddedDishItems();
-		
-//		dish_map.put(d1, 1);
-//		dish_map.put(d2, 2);
-		
 		refreshData();
 	}
 	
@@ -76,6 +64,8 @@ public class CartController {
 							pane.setHgap(5);
 							
 							ImageView pic = new ImageView(item.getItem().getImageUri());
+							pic.setFitHeight(50);
+							pic.setFitWidth(50);
 							pane.add(pic, 0, 0);
 							
 							Label name = new Label(item.getItem().getDishName());
@@ -123,36 +113,70 @@ public class CartController {
 		}
 		else {
 			dish_map.put(d.getItem(), n);
+			OrderMenu.setAddedDishItems(null);
 		}
 		refreshData();
 	}
 	
+	private void showCustomerScene(Stage stage, Pane pane, String title) {
+		Scene scene = new Scene(pane, 400, 600);
+		stage.setTitle(title);
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	private Pane setMainPane(Pane adminMenu, Pane selectedPane, Pane customerMenu ) {
+		BorderPane mainPane = new BorderPane();
+		mainPane.setTop(adminMenu);
+		mainPane.setCenter(selectedPane);
+		mainPane.setBottom(customerMenu);
+		BorderPane.setMargin(adminMenu, new Insets(10));
+		BorderPane.setMargin(customerMenu, new Insets(10));
+		return mainPane;
+	}
+	
 	@FXML
 	private void backToMenu(ActionEvent event) throws Exception {
-//		try {
-//            Parent root = FXMLLoader.load(getClass().getResource("/Customer/MenuView.fxml"));
-//            Scene orderListScene = new Scene(root);
-//            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-//            window.setScene(orderListScene);
-//            window.show();
-//
-//        }
-//		catch (Exception e){
-//            System.out.println("Error occured while opening Menu page");
-//            e.printStackTrace();
-//            throw e;
-//        }
+		try {
+			Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+			HBox customerMenu = new HBox();
+			Button menuListForCustomer = new Button("Order Menu");
+			Button orderList = new Button("Order List");
+			Pane customerOrderListPane = FXMLLoader.load(getClass().getResource("/Customer/OrderListView.fxml"));
+			orderList.setOnAction(e -> {
+				showCustomerScene(window, setMainPane(new Pane(), customerOrderListPane, customerMenu), "Order List");
+			});
+			menuListForCustomer.setOnAction(e -> {
+				showCustomerScene(window, setMainPane(new Pane(), new OrderMenu(), customerMenu), "Order Menu");
+			});
+			customerMenu.setSpacing(10);
+			customerMenu.getChildren().addAll(menuListForCustomer, orderList);
+			showCustomerScene(window, setMainPane(new Pane(), new OrderMenu(), customerMenu), "Order Menu");
+        }
+		catch (Exception e){
+            System.out.println("Error occured while opening Menu page");
+            e.printStackTrace();
+            throw e;
+        }
 	}
 	
 	@FXML
 	private void goToOrderList(ActionEvent event) throws Exception {
 		try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Customer/OrderListView.fxml"));
-            Scene orderListScene = new Scene(root);
-            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-            window.setScene(orderListScene);
-            window.show();
-
+			Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+			HBox customerMenu = new HBox();
+			Button menuListForCustomer = new Button("Order Menu");
+			Button orderList = new Button("Order List");
+			Pane customerOrderListPane = FXMLLoader.load(getClass().getResource("/Customer/OrderListView.fxml"));
+			orderList.setOnAction(e -> {
+				showCustomerScene(window, setMainPane(new Pane(), customerOrderListPane, customerMenu), "Order List");
+			});
+			menuListForCustomer.setOnAction(e -> {
+				showCustomerScene(window, setMainPane(new Pane(), new OrderMenu(), customerMenu), "Order Menu");
+			});
+			customerMenu.setSpacing(10);
+			customerMenu.getChildren().addAll(menuListForCustomer, orderList);
+			showCustomerScene(window, setMainPane(new Pane(), customerOrderListPane, customerMenu), "Order List");
         }
 		catch (Exception e){
             System.out.println("Error occured while opening OrderList page");
@@ -190,10 +214,8 @@ public class CartController {
 		try {
 			Customer.OrderDAO.insertOrder(UUID.randomUUID().toString(), user_id, 0, dishes.toString(), time, total_cost);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {

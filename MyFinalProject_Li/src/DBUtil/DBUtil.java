@@ -8,12 +8,14 @@ public class DBUtil {
 	private static Stage stage;
     private static Connection connection = null;
     private static final String connStr = "jdbc:mysql://127.0.0.1:3306/mySql?useUnicode=true&characterEncoding=utf-8&useSSL=false";
-
+    private static final String userName = "root";
+    private static final String passWord = "password";
+    
     //database connection method
     public static void dbConnect() throws SQLException, ClassNotFoundException{
     	try 
         {  
-             Class.forName("com.mysql.jdbc.Driver");     //加载MYSQL JDBC驱动程序      
+             Class.forName("com.mysql.jdbc.Driver");
              System.out.println("Success loading Mysql Driver!");  
          }  
          catch (Exception e) 
@@ -23,7 +25,7 @@ public class DBUtil {
         }  
     	
         try {
-            connection = DriverManager.getConnection(connStr,"root","password");
+            connection = DriverManager.getConnection(connStr, userName, passWord);
             System.out.println("Success connect Mysql server!");  
         }
         catch (SQLException e){
@@ -89,6 +91,18 @@ public class DBUtil {
 //            dbDisconnect();
         }
         return rs;
+    }
+    
+    public static String getDBConnStr() {
+    	return connStr;
+    }
+    
+    public static String getDBUserName() {
+    	return userName;
+    }
+    
+    public static String getDBPassWord() {
+    	return passWord;
     }
     
     public static void setStage(Stage stage) {

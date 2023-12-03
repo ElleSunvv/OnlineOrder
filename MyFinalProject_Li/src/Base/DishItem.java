@@ -2,7 +2,7 @@ package Base;
 
 public class DishItem {
 	private Category category;
-	private String dishId;
+	private Integer dishId;
 	private String dishName;
 	private Double unitPrice;
 	private String imageUri;
@@ -10,14 +10,22 @@ public class DishItem {
 	
 	public DishItem(Category category, String dishName, Double unitPrice, String imageUri) {
 		this.category = category;
-		this.dishId = category.getCategoryId() + dishNum;
 		this.dishName = dishName;
 		this.unitPrice = unitPrice;
 		this.imageUri = imageUri;
 		dishNum++;
 	}
 	
-	public String getDishId() {
+	public DishItem(Category category, Integer dishId, String dishName, Double unitPrice, String imageUri) {
+		this.category = category;
+		this.dishId = dishId;
+		this.dishName = dishName;
+		this.unitPrice = unitPrice;
+		this.imageUri = imageUri;
+		dishNum++;
+	}
+	
+	public Integer getDishId() {
 		return dishId;
 	}
 	
@@ -37,13 +45,11 @@ public class DishItem {
 		return dishNum;
 	}
 	
-	public String getCategoryId() {
-//		return super.getCategoryId();
+	public Integer getCategoryId() {
 		return category.getCategoryId();
 	}
 	
 	public String getCategoryName() {
-//		return super.getCategoryName();
 		return category.getCategoryName();
 	}
 	
@@ -53,6 +59,10 @@ public class DishItem {
 	
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+	
+	public void setDishId(Integer dishId) {
+		this.dishId = dishId;
 	}
 	
 	public void setDishName(String dishName) {

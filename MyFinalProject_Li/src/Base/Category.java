@@ -1,26 +1,21 @@
 package Base;
 
 public class Category {
-	private String categoryId;
+	private Integer categoryId;
 	private String categoryName;
-	private static int categoryNum = 1;
+	private static int categoryNum;
 	
-	public Category() {
-		
-	}
-	
-	public Category(String categoryID, String categoryName) {
-		setCategoryId(categoryID);
+	public Category(Integer categoryId, String categoryName) {
+		setCategoryId(categoryId);
 		setCategoryName(categoryName);
 	}
 
 	public Category(String categoryName) {
-		setCategoryId("c" + categoryNum);
 		setCategoryName(categoryName);
 		categoryNum++;
 	}
 
-	public static int getCategoryNum() {
+	public static Integer getCategoryNum() {
 		return categoryNum;
 	}
 
@@ -28,15 +23,15 @@ public class Category {
 		return getCategoryName();
 	}
 	// setter categoryId
-	public void setCategoryId(String categoryId) {
+	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
 	}
 	// getter categoryId
-	public String getCategoryId() {
+	public Integer getCategoryId() {
 		return categoryId;
 	}
 	
-	public String categoryIdProperty() {
+	public int categoryIdProperty() {
 		return categoryId;
 	}
 	

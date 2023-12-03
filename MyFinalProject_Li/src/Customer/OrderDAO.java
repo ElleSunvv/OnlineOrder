@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
 
 public class OrderDAO {
 	public static ObservableList<Order> getOrders(String userId)  throws ClassNotFoundException, SQLException {
-		String sql = "select * from test.order where user_id='" + userId + "' order by status asc";
+		String sql = "select * from test.order where user_id='" + userId + "' order by status asc, time desc";
 		
 		try {
             ResultSet rsSet = DBUtil.dbExecute(sql);
