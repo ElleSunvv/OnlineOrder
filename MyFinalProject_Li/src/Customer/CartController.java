@@ -188,7 +188,7 @@ public class CartController {
 	private ObservableList<DishDetail> generateData(HashMap<DishItem, Integer> map) {
 		ObservableList<DishDetail> alldata = FXCollections.observableArrayList();
 		
-		for (Map.Entry<DishItem, Integer> entry : map.entrySet()) {System.out.println(entry.getKey().toString());
+		for (Map.Entry<DishItem, Integer> entry : map.entrySet()) {
 			DishDetail dataRow = new DishDetail(entry.getKey(), entry.getValue());
             alldata.add(dataRow);
         }

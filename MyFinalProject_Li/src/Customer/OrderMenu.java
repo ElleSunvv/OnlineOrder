@@ -16,6 +16,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -139,9 +140,12 @@ class DishItemPane extends GridPane{
 	private Text dishItemNameText = new Text();
 	private Text unitPriceText = new Text();
 	private Button addDishButton = new Button("+");
+	private ColumnConstraints column1 = new ColumnConstraints();
+	private ColumnConstraints column2 = new ColumnConstraints();
+	private ColumnConstraints column3 = new ColumnConstraints();
 	
 	public DishItemPane(DishItem dishItem) {
-        for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 Region cell = new Region();
                 cell.setStyle("-fx-background-color: lightgray;");
@@ -149,20 +153,25 @@ class DishItemPane extends GridPane{
                 add(cell, i, j);
             }
         }
-		this.imageView.setImage(new Image(dishItem.getImageUri()));
-		this.dishItemNameText.setText(dishItem.getDishName());
-		this.unitPriceText.setText(dishItem.getUnitPrice().toString());
-		
-		imageView.setFitHeight(30);
-		imageView.setFitWidth(30);
-		
+		imageView.setImage(new Image(dishItem.getImageUri()));
+		imageView.setFitHeight(60);
+		imageView.setFitWidth(60);
 		setRowSpan(imageView, 3);
-		setColumnSpan(imageView, 3);                               
+		setColumnSpan(imageView, 3);  
+		
+		dishItemNameText.setText(dishItem.getDishName());
+		
+		unitPriceText.setText("$" + dishItem.getUnitPrice().toString());
+		
+		column1.setPercentWidth(21);
+		column2.setPercentWidth(72);
+		column3.setPercentWidth(7);
+		getColumnConstraints().addAll(column1, column2, column3);
 		
 		add(imageView, 0, 0);
-		add(dishItemNameText, 3, 0);
-		add(unitPriceText, 3, 1);
-		add(addDishButton, 5, 0);
+		add(dishItemNameText, 1, 0);
+		add(unitPriceText, 1, 2);
+		add(addDishButton, 2, 0);
 		
 		addDishButton.setOnAction(e -> {
 			OrderMenu.setAddedDishItems(dishItem);
