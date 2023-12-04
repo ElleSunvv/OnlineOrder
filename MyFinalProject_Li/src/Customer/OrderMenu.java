@@ -2,6 +2,7 @@ package Customer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import Base.Category;
 import Base.DishItem;
@@ -79,14 +80,6 @@ public class OrderMenu extends BorderPane {
 		setMargin(goToPay, new Insets(10));
 	}
 	
-	public static void addTotalNum() {
-		totalNum++;
-	}
-	
-	public static void addTotalPrice(Double price) {
-		totalPrice += price;
-	}
-	
 	public static void setShowTotalNum(Integer num) {
 		showTotalNum.setText(num.toString());
 	}
@@ -96,17 +89,31 @@ public class OrderMenu extends BorderPane {
 	}
 	
 	public static int getTotalNum() {
+		totalNum = 0;
+		for (Map.Entry<DishItem, Integer> entry : addedDishItems.entrySet()) {
+			totalNum += entry.getValue();
+		}
 		return totalNum;
 	}
 	
 	public static Double getTotalPrice() {
+		totalPrice = 0.0;
+		for (Map.Entry<DishItem, Integer> entry : addedDishItems.entrySet()) {
+			totalPrice += entry.getValue() * entry.getKey().getUnitPrice();
+		}
 		return totalPrice;
 	}
 	
 	public static void setAddedDishItems(DishItem dishItem) {
-		if (addedDishItems.containsKey(dishItem)) {
-			int currentQuantity = addedDishItems.get(dishItem);
-			addedDishItems.put(dishItem, currentQuantity + 1);
+		DishItem d = null;
+		for (Map.Entry<DishItem, Integer> entry : addedDishItems.entrySet()) {
+			if (entry.getKey().getDishId() == dishItem.getDishId()) {
+				d = entry.getKey();
+			}
+		}
+		if (d != null) {
+			int currentQuantity = addedDishItems.get(d);
+			addedDishItems.put(d, currentQuantity + 1);
 		} else {
 			addedDishItems.put(dishItem, 1);
 		}	
@@ -118,6 +125,12 @@ public class OrderMenu extends BorderPane {
 
 	public static Button getContinuedButton() {
 		return continueButton;
+	}
+	
+	public static void updateDishItems(HashMap<DishItem, Integer> dishMap) {
+		addedDishItems = dishMap;
+		setShowTotalNum(OrderMenu.getTotalNum());
+		setShowTotalPrice(OrderMenu.getTotalPrice());
 	}
 }
 
@@ -152,13 +165,9 @@ class DishItemPane extends GridPane{
 		add(addDishButton, 5, 0);
 		
 		addDishButton.setOnAction(e -> {
-			OrderMenu.addTotalNum();
-			OrderMenu.addTotalPrice(dishItem.getUnitPrice());
+			OrderMenu.setAddedDishItems(dishItem);
 			OrderMenu.setShowTotalNum(OrderMenu.getTotalNum());
 			OrderMenu.setShowTotalPrice(OrderMenu.getTotalPrice());
-//			DishItems will be passed to order cart
-			OrderMenu.setAddedDishItems(dishItem);
-			
 		});
 	}
 }

@@ -11,6 +11,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -56,7 +58,11 @@ public class LoginController {
 				loadMainPage(event);
 			}
 			else {
-				System.out.println("name or passcode error");
+				Alert alert = new Alert(AlertType.INFORMATION);
+	            alert.setTitle("Error");
+	            alert.setHeaderText(null);
+	            alert.setContentText("Nber eats : Invalid username or password.");
+	            alert.showAndWait();
 			}
 		
        }catch (Exception e){

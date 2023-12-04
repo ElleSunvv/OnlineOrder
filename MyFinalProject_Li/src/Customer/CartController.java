@@ -113,8 +113,8 @@ public class CartController {
 		}
 		else {
 			dish_map.put(d.getItem(), n);
-			OrderMenu.setAddedDishItems(null);
 		}
+		OrderMenu.updateDishItems(dish_map);
 		refreshData();
 	}
 	
@@ -188,7 +188,7 @@ public class CartController {
 	private ObservableList<DishDetail> generateData(HashMap<DishItem, Integer> map) {
 		ObservableList<DishDetail> alldata = FXCollections.observableArrayList();
 		
-		for (Map.Entry<DishItem, Integer> entry : map.entrySet()) {
+		for (Map.Entry<DishItem, Integer> entry : map.entrySet()) {System.out.println(entry.getKey().toString());
 			DishDetail dataRow = new DishDetail(entry.getKey(), entry.getValue());
             alldata.add(dataRow);
         }
