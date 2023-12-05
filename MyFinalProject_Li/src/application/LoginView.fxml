@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,7 +13,6 @@
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
       <TextField fx:id="txtuserName" layoutX="268.0" layoutY="149.0" />
-      <TextField fx:id="txtpasscode" layoutX="268.0" layoutY="223.0" />
       <Button layoutX="126.0" layoutY="285.0" mnemonicParsing="false" onAction="#login" text="Log in" textFill="#2126ba" />
       <Button layoutX="324.0" layoutY="285.0" mnemonicParsing="false" onAction="#addUserA" text="Create Account" textFill="#241ed9" />
       <Text fill="#3b43cc" layoutX="126.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Name :">
@@ -45,5 +45,6 @@
             <Image url="@../images/meituan.png" />
          </image>
       </ImageView>
+      <PasswordField fx:id="txtpasscode" layoutX="268.0" layoutY="221.0" />
    </children>
 </AnchorPane>
