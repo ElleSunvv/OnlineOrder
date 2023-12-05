@@ -23,7 +23,6 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 
 public class OrderController {
-	@FXML private ImageView user_img;
 	@FXML private ListView<Order> order_list = new ListView<>();
 	private String user_id = String.valueOf(UserDAO.userId);
 	
@@ -113,11 +112,7 @@ public class OrderController {
 	
 	private ObservableList<OrderDetail> generateDetailData(HashMap<String, Integer> map) {
 		ObservableList<OrderDetail> alldata = FXCollections.observableArrayList();
-		
-//		for (Map.Entry<String, Integer> entry : map.entrySet()) {
-//			OrderDetail dataRow = new OrderDetail(entry.getKey(), entry.getValue());
-//            alldata.add(dataRow);
-//        }
+
 		Iterator<HashMap.Entry<String, Integer>> iterator = map.entrySet().iterator();
 		while (iterator.hasNext()) {
 			HashMap.Entry<String, Integer> entry = iterator.next();

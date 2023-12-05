@@ -37,7 +37,7 @@ public class UserDAO {
 	            System.out.println("Connection test failed!");
 	        }
 	    }
-	  public void insertUserData(String userName, String password) {
+	  public void insertUserData(String userName, String password) {System.out.println(userName+"//"+password);
 	        try {
 	        	userId = this.getfinalUserId();
 

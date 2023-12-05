@@ -1,5 +1,6 @@
 package Customer;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -142,9 +143,12 @@ public class CartController {
 			HBox customerMenu = new HBox();
 			Button menuListForCustomer = new Button("Order Menu");
 			Button orderList = new Button("Order List");
-			Pane customerOrderListPane = FXMLLoader.load(getClass().getResource("/Customer/OrderListView.fxml"));
 			orderList.setOnAction(e -> {
-				showCustomerScene(window, setMainPane(new Pane(), customerOrderListPane, customerMenu), "Order List");
+				try {
+					showCustomerScene(window, setMainPane(new Pane(), FXMLLoader.load(getClass().getResource("/Customer/OrderListView.fxml")), customerMenu), "Order List");
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			});
 			menuListForCustomer.setOnAction(e -> {
 				showCustomerScene(window, setMainPane(new Pane(), new OrderMenu(), customerMenu), "Order Menu");
@@ -167,16 +171,19 @@ public class CartController {
 			HBox customerMenu = new HBox();
 			Button menuListForCustomer = new Button("Order Menu");
 			Button orderList = new Button("Order List");
-			Pane customerOrderListPane = FXMLLoader.load(getClass().getResource("/Customer/OrderListView.fxml"));
 			orderList.setOnAction(e -> {
-				showCustomerScene(window, setMainPane(new Pane(), customerOrderListPane, customerMenu), "Order List");
+				try {
+					showCustomerScene(window, setMainPane(new Pane(), FXMLLoader.load(getClass().getResource("/Customer/OrderListView.fxml")), customerMenu), "Order List");
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			});
 			menuListForCustomer.setOnAction(e -> {
 				showCustomerScene(window, setMainPane(new Pane(), new OrderMenu(), customerMenu), "Order Menu");
 			});
 			customerMenu.setSpacing(10);
 			customerMenu.getChildren().addAll(menuListForCustomer, orderList);
-			showCustomerScene(window, setMainPane(new Pane(), customerOrderListPane, customerMenu), "Order List");
+			showCustomerScene(window, setMainPane(new Pane(), FXMLLoader.load(getClass().getResource("/Customer/OrderListView.fxml")), customerMenu), "Order List");
         }
 		catch (Exception e){
             System.out.println("Error occured while opening OrderList page");
@@ -219,6 +226,7 @@ public class CartController {
 			e.printStackTrace();
 		}
 		finally {
+			OrderMenu.updateDishItems(new HashMap<DishItem, Integer>());
 			goToOrderList(event);
 		}
 	}

@@ -1,7 +1,16 @@
 package Admin;
 
-import javafx.collections.FXCollections;
+import java.io.IOException;
+
+import Customer.MenuList;
+import Customer.UserDAO;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,56 +18,18 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.Map;
-
-import Base.UserData;
-import Customer.MenuList;
-import Customer.OrderMenu;
-import Customer.UserDAO;
-
-
-public class UserListController {
-	private Pane selectedPane;
-	
+public class AddUserController {
+		private Pane selectedPane;
 	    @FXML
-	    private TableView<UserData> tableView;
-
-	    @FXML
-	    private TableColumn<UserData, Integer> userIdColumn;
-
-	    @FXML
-	    private TableColumn<UserData, String> userNameColumn;
-
-	    public void initialize() {
-	        userIdColumn.setCellValueFactory(cellData -> cellData.getValue().userIdProperty().asObject());
-	        userNameColumn.setCellValueFactory(cellData -> cellData.getValue().userNameProperty());
-	        UserDAO userDAO = new UserDAO();
-	        Map<Integer, String> userMap = userDAO.getalluser();
-	        displayUserMap(userMap);
-	    }
-
-	    public void displayUserMap(Map<Integer, String> userMap) {
-	        ObservableList<UserData> userDataList = FXCollections.observableArrayList();
-	        
-	        for (Map.Entry<Integer, String> entry : userMap.entrySet()) {
-	            userDataList.add(new UserData(entry.getKey(), entry.getValue()));
-	        }
-
-	        tableView.setItems(userDataList);
-	    }
-	    
-	    @FXML
-	    public void return_backAd(ActionEvent event) throws Exception {
-	    	Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+	    public void return_backUserC(ActionEvent event) throws Exception {
+			Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			Button menuListForAdmin = new Button("Menu List");
 			Button categoryList = new Button("Category List");
 			Button userControl = new Button("User Control");
@@ -123,4 +94,26 @@ public class UserListController {
 			stage.show();
 		}
 
+	   
+@FXML 
+public TextField txtuserName;
+@FXML
+public TextField txtpasscode;
+@FXML
+public void registerC(ActionEvent event) throws Exception{
+       try {System.out.println(txtuserName.getText()+"//"+txtpasscode.getText());
+    	   UserDAO userDAO = new UserDAO();
+			userDAO.insertUserData(txtuserName.getText(), txtpasscode.getText());
+	        Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Approved！");
+            alert.setHeaderText(null);
+            alert.setContentText("Nber eats : New Account is created.");
+            alert.showAndWait();
+            
+			return_backUserC(event);
+			//此处为跳转回控制用户
+       }catch (Exception e){e.getStackTrace();
+           System.out.println("Error while registering and inserting");
+       }
+   }
 }

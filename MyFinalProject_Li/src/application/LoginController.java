@@ -1,5 +1,7 @@
 package application;
 
+import java.io.IOException;
+
 import Admin.CategoryList;
 import Customer.MenuList;
 import Customer.OrderMenu;
@@ -75,7 +77,7 @@ public class LoginController {
 		Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		Button menuListForAdmin = new Button("Menu List");
 		Button categoryList = new Button("Category List");
-		Button userList = new Button("User List");
+		Button userControl = new Button("User Control");
 		Button workStation = new Button("Work Station");
 		
 		Button menuListForCustomer = new Button("Order Menu");
@@ -83,14 +85,10 @@ public class LoginController {
 		
 		HBox adminMenu = new HBox();
 		HBox customerMenu = new HBox();
-		
-		Pane adminOrderPane = FXMLLoader.load(getClass().getResource("/Admin/AdminOrderView.fxml"));
-		Pane customerOrderListPane = FXMLLoader.load(getClass().getResource("/Customer/OrderListView.fxml"));
-		Pane adminUserListPane = FXMLLoader.load(getClass().getResource("/Admin/UserListView.fxml"));
-		
+				
 		menuListForAdmin.setVisible(isAdmin);
 		categoryList.setVisible(isAdmin);
-		userList.setVisible(isAdmin);
+		userControl.setVisible(isAdmin);
 		workStation.setVisible(isAdmin);
 		
 		menuListForCustomer.setVisible(isCustomer);
@@ -98,15 +96,19 @@ public class LoginController {
 		
 		adminMenu.setSpacing(10);
 		adminMenu.getChildren().addAll(
-			workStation, menuListForAdmin, categoryList, userList
+			workStation, menuListForAdmin, categoryList, userControl
 		);
 		
 		customerMenu.setSpacing(10);
 		customerMenu.getChildren().addAll(menuListForCustomer, orderList);
 		
 		if (isAdmin) {
-			selectedPane = adminOrderPane;
-			showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Work Station");
+			try {
+				selectedPane = FXMLLoader.load(getClass().getResource("/Admin/AdminOrderView.fxml"));
+				showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Work Station");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 		else {
 			selectedPane = new OrderMenu();
@@ -129,13 +131,21 @@ public class LoginController {
 		});
 		
 		workStation.setOnAction(e -> {
-			selectedPane = adminOrderPane;
-			showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Work Station");
+			try {
+				selectedPane = FXMLLoader.load(getClass().getResource("/Admin/AdminOrderView.fxml"));
+				showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Work Station");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		});
 		
-		userList.setOnAction(e -> {
-			selectedPane = adminUserListPane;
-			showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "UserList");
+		userControl.setOnAction(e -> {
+			try {
+				selectedPane = FXMLLoader.load(getClass().getResource("/Admin/UserControlView.fxml"));
+				showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "User Control");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		});
 		
 		OrderMenu.getContinuedButton().setOnAction(e -> {
@@ -143,8 +153,12 @@ public class LoginController {
 		});
 		
 		orderList.setOnAction(e -> {
-			selectedPane = customerOrderListPane;
-			showCustomerScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Order List");
+			try {
+				selectedPane = FXMLLoader.load(getClass().getResource("/Customer/OrderListView.fxml"));
+				showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Order List");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		});
 	}
 	

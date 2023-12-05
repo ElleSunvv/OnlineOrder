@@ -90,7 +90,6 @@ public class OrderController {
 									updateOrderStatus(getTableRow().getItem().getOrderId());
 									dialogStage.close();
 								} catch (ClassNotFoundException | SQLException e1) {
-									// TODO Auto-generated catch block
 									e1.printStackTrace();
 								}
 							});
