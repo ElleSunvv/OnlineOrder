@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class OrderDAO {
 	public static ObservableList<Order> getOrders()  throws ClassNotFoundException, SQLException {
-		String sql = "select * from test.order order by status asc";
+		String sql = "select * from test.order where status<2 order by status asc";
 		
 		try {
             ResultSet rsSet = DBUtil.dbExecute(sql);

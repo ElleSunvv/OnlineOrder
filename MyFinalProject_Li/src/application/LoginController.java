@@ -106,7 +106,7 @@ public class LoginController {
 		
 		if (isAdmin) {
 			selectedPane = adminOrderPane;
-			showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Menu List");
+			showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Work Station");
 		}
 		else {
 			selectedPane = new OrderMenu();
