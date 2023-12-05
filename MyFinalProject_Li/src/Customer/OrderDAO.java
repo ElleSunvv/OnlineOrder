@@ -31,7 +31,7 @@ public class OrderDAO {
 
             while (rsSet.next()){
                 Order order = new Order();
-                order.setOrderId(rsSet.getString("order_id"));
+                order.setOrderId(rsSet.getString("order_id"));System.out.println(order.getOrderId());
                 order.setUserId(rsSet.getString("user_id"));
                 order.setStatus(rsSet.getInt("status"));
                 order.setOrderTime(rsSet.getTimestamp("time"));

@@ -1,10 +1,8 @@
 package Customer;
 
-import Customer.OrderDAO;
-
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Iterator;
 
 import Base.Order;
 import Base.OrderDetail;
@@ -37,7 +35,7 @@ public class OrderController {
 	}
 	
 	private void refreshData() throws Exception {
-		ObservableList<Order> dataList = OrderDAO.getOrders(user_id);
+		ObservableList<Order> dataList = Customer.OrderDAO.getOrders(user_id);
 		order_list.setItems(dataList);
 		
 		order_list.setCellFactory(new Callback<ListView<Order>, ListCell<Order>>() {
@@ -116,10 +114,16 @@ public class OrderController {
 	private ObservableList<OrderDetail> generateDetailData(HashMap<String, Integer> map) {
 		ObservableList<OrderDetail> alldata = FXCollections.observableArrayList();
 		
-		for (Map.Entry<String, Integer> entry : map.entrySet()) {
+//		for (Map.Entry<String, Integer> entry : map.entrySet()) {
+//			OrderDetail dataRow = new OrderDetail(entry.getKey(), entry.getValue());
+//            alldata.add(dataRow);
+//        }
+		Iterator<HashMap.Entry<String, Integer>> iterator = map.entrySet().iterator();
+		while (iterator.hasNext()) {
+			HashMap.Entry<String, Integer> entry = iterator.next();
 			OrderDetail dataRow = new OrderDetail(entry.getKey(), entry.getValue());
-            alldata.add(dataRow);
-        }
+			alldata.add(dataRow);
+		}
         return alldata;
 	}
 }

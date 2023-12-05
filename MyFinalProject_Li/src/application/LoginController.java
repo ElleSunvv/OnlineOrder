@@ -54,6 +54,7 @@ public class LoginController {
 				}
 				else {
 					isCustomer = true;
+					UserDAO.userId = userDAO.findUserId(txtuserName.getText(), txtpasscode.getText());
 		        }
 				loadMainPage(event);
 			}

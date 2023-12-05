@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import Base.Order;
@@ -34,8 +35,6 @@ public class OrderController {
 	@FXML private TableColumn<Order, String> amount;
 	
 	@FXML private TableView<Order> orderTable;
-	
-	@FXML private javafx.scene.control.TextArea resultConsole;
 	
 	@FXML
 	private void initialize() throws Exception {
@@ -126,17 +125,18 @@ public class OrderController {
 	private ObservableList<OrderDetail> generateDetailData(HashMap<String, Integer> map) {
 		ObservableList<OrderDetail> alldata = FXCollections.observableArrayList();
 		
-		for (Map.Entry<String, Integer> entry : map.entrySet()) {
+		Iterator<HashMap.Entry<String, Integer>> iterator = map.entrySet().iterator();
+		while (iterator.hasNext()) {
+			HashMap.Entry<String, Integer> entry = iterator.next();
 			OrderDetail dataRow = new OrderDetail(entry.getKey(), entry.getValue());
-            alldata.add(dataRow);
-        }
+			alldata.add(dataRow);
+		}
         return alldata;
 	}
 	
 	private void updateOrderStatus(String orderId) throws ClassNotFoundException, SQLException {
 		try {
 			OrderDAO.updateOrderStatus(orderId, 1);
-//			resultConsole.setText("Data was updated");
 			ObservableList<Order> orderList = OrderDAO.getOrders();
 			populateOrderTable(orderList);
 		}
