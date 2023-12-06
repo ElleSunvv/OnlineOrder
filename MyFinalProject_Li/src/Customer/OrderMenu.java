@@ -66,16 +66,6 @@ public class OrderMenu extends BorderPane {
 		showTotalNum.setFill(Color.RED);
 		showTotalPrice.setFill(Color.RED);
 		
-//		go to order cart page TBD
-//		continueButton.setOnAction(e -> {
-//			setIsContinued(true);
-////			for(DishItem dishItem: OrderMenu.getAddedDishItems().keySet()) {
-////				System.out.println("dishItem: " + dishItem.getDishName() + 
-////						", unit price is: " + dishItem.getUnitPrice() + 
-////						", quantity is: " + OrderMenu.getAddedDishItems().get(dishItem));
-////			}
-//		});
-//		
 		setCenter(scrollPane);
 		setBottom(goToPay);
 		setMargin(goToPay, new Insets(10));

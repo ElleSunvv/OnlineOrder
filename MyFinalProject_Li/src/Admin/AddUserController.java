@@ -26,82 +26,81 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class AddUserController {
-		private Pane selectedPane;
-	    @FXML
-	    public void return_backUserC(ActionEvent event) throws Exception {
-			Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-			Button menuListForAdmin = new Button("Menu List");
-			Button categoryList = new Button("Category List");
-			Button userControl = new Button("User Control");
-			Button workStation = new Button("Work Station");
-			
-			HBox adminMenu = new HBox();
-			HBox customerMenu = new HBox();
-			
-			adminMenu.setSpacing(10);
-			adminMenu.getChildren().addAll(
-				workStation, menuListForAdmin, categoryList, userControl
-			);
-			
-			
-			selectedPane = FXMLLoader.load(getClass().getResource("/Admin/UserControlView.fxml"));
-			showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "User Control");
-			
-			menuListForAdmin.setOnAction(e -> {
-				selectedPane = new MenuList();
-				showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Menu List");
-			});
-			
-			categoryList.setOnAction(e -> {
-				selectedPane = new CategoryList();
-				showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Category List");
-			});
-			
-			workStation.setOnAction(e -> {
-				try {
-					selectedPane = FXMLLoader.load(getClass().getResource("/Admin/AdminOrderView.fxml"));
-					showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Work Station");
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			});
-			
-			userControl.setOnAction(e -> {
-				try {
-					selectedPane = FXMLLoader.load(getClass().getResource("/Admin/UserControlView.fxml"));
-					showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "User Control");
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			});
-			
-		}
-	    
-	    public Pane setMainPane(Pane adminMenu, Pane selectedPane, Pane customerMenu ) {
-			BorderPane mainPane = new BorderPane();
-			mainPane.setTop(adminMenu);
-			mainPane.setCenter(selectedPane);
-			mainPane.setBottom(customerMenu);
-			BorderPane.setMargin(adminMenu, new Insets(10));
-			BorderPane.setMargin(customerMenu, new Insets(10));
-			return mainPane;
-		}
+	private Pane selectedPane;
+	
+	@FXML
+	public void return_backUserC(ActionEvent event) throws Exception {
+		Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		Button menuListForAdmin = new Button("Menu List");
+		Button categoryList = new Button("Category List");
+		Button userControl = new Button("User Control");
+		Button workStation = new Button("Work Station");
 		
-		public void showAdminScene(Stage stage, Pane pane, String title) {
-			Scene scene = new Scene(pane, 600, 500);
-			stage.setTitle(title);
-			stage.setScene(scene);
-			stage.show();
-		}
+		HBox adminMenu = new HBox();
+		HBox customerMenu = new HBox();
+		
+		adminMenu.setSpacing(10);
+		adminMenu.getChildren().addAll(
+			workStation, menuListForAdmin, categoryList, userControl
+		);
+		
+		
+		selectedPane = FXMLLoader.load(getClass().getResource("/Admin/UserControlView.fxml"));
+		showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "User Control");
+		
+		menuListForAdmin.setOnAction(e -> {
+			selectedPane = new MenuList();
+			showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Menu List");
+		});
+		
+		categoryList.setOnAction(e -> {
+			selectedPane = new CategoryList();
+			showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Category List");
+		});
+		
+		workStation.setOnAction(e -> {
+			try {
+				selectedPane = FXMLLoader.load(getClass().getResource("/Admin/AdminOrderView.fxml"));
+				showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Work Station");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		});
+		
+		userControl.setOnAction(e -> {
+			try {
+				selectedPane = FXMLLoader.load(getClass().getResource("/Admin/UserControlView.fxml"));
+				showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "User Control");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		});
+		
+	}
+    
+    public Pane setMainPane(Pane adminMenu, Pane selectedPane, Pane customerMenu ) {
+		BorderPane mainPane = new BorderPane();
+		mainPane.setTop(adminMenu);
+		mainPane.setCenter(selectedPane);
+		mainPane.setBottom(customerMenu);
+		BorderPane.setMargin(adminMenu, new Insets(10));
+		BorderPane.setMargin(customerMenu, new Insets(10));
+		return mainPane;
+	}
+	
+	public void showAdminScene(Stage stage, Pane pane, String title) {
+		Scene scene = new Scene(pane, 600, 500);
+		stage.setTitle(title);
+		stage.setScene(scene);
+		stage.show();
+	}
 
-	   
-@FXML 
-public TextField txtuserName;
-@FXML
-public TextField txtpasscode;
-@FXML
-public void registerC(ActionEvent event) throws Exception{
-       try {System.out.println(txtuserName.getText()+"//"+txtpasscode.getText());
+	@FXML public TextField txtuserName;
+	@FXML public TextField txtpasscode;
+	
+	@FXML
+	public void registerC(ActionEvent event) throws Exception{
+       try {
     	   UserDAO userDAO = new UserDAO();
 			userDAO.insertUserData(txtuserName.getText(), txtpasscode.getText());
 	        Alert alert = new Alert(AlertType.INFORMATION);
@@ -111,7 +110,6 @@ public void registerC(ActionEvent event) throws Exception{
             alert.showAndWait();
             
 			return_backUserC(event);
-			//此处为跳转回控制用户
        }catch (Exception e){e.getStackTrace();
            System.out.println("Error while registering and inserting");
        }

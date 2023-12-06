@@ -32,7 +32,6 @@ public class LoginController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/Customer/AddUserView.fxml"));
             Scene create = new Scene(root);
-            //gets stage information
             Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
             window.setScene(create);
             window.show();
@@ -47,6 +46,7 @@ public class LoginController {
 	@FXML 
 	public TextField txtuserName;
 	public TextField txtpasscode;
+	
 	public void login(ActionEvent event) throws Exception{
        try {
            UserDAO userDAO = new UserDAO();

@@ -3,7 +3,6 @@ package Base;
 public class Category {
 	private Integer categoryId;
 	private String categoryName;
-	private static int categoryNum;
 	
 	public Category(Integer categoryId, String categoryName) {
 		setCategoryId(categoryId);
@@ -12,11 +11,6 @@ public class Category {
 
 	public Category(String categoryName) {
 		setCategoryName(categoryName);
-		categoryNum++;
-	}
-
-	public static Integer getCategoryNum() {
-		return categoryNum;
 	}
 
 	public String toString() {
@@ -31,10 +25,6 @@ public class Category {
 		return categoryId;
 	}
 	
-	public int categoryIdProperty() {
-		return categoryId;
-	}
-	
 	// setter categoryName
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
@@ -44,7 +34,4 @@ public class Category {
 		return categoryName;
 	}
 	
-	public String categoryNameProperty() {
-		return categoryName;
-	}
 }

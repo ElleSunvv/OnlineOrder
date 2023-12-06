@@ -6,14 +6,12 @@ public class DishItem {
 	private String dishName;
 	private Double unitPrice;
 	private String imageUri;
-	private static int dishNum;
 	
 	public DishItem(Category category, String dishName, Double unitPrice, String imageUri) {
 		this.category = category;
 		this.dishName = dishName;
 		this.unitPrice = unitPrice;
 		this.imageUri = imageUri;
-		dishNum++;
 	}
 	
 	public DishItem(Category category, Integer dishId, String dishName, Double unitPrice, String imageUri) {
@@ -22,7 +20,6 @@ public class DishItem {
 		this.dishName = dishName;
 		this.unitPrice = unitPrice;
 		this.imageUri = imageUri;
-		dishNum++;
 	}
 	
 	public Integer getDishId() {
@@ -39,10 +36,6 @@ public class DishItem {
 	
 	public String getImageUri() {
 		return imageUri;
-	}
-	
-	public static int getDishNum() {
-		return dishNum;
 	}
 	
 	public Integer getCategoryId() {
