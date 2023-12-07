@@ -155,7 +155,7 @@ public class LoginController {
 		orderList.setOnAction(e -> {
 			try {
 				selectedPane = FXMLLoader.load(getClass().getResource("/Customer/OrderListView.fxml"));
-				showAdminScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Order List");
+				showCustomerScene(primaryStage, setMainPane(adminMenu, selectedPane, customerMenu), "Order List");
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}

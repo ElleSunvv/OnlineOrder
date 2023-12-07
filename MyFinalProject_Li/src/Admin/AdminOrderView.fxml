@@ -13,7 +13,7 @@
           <TableColumn fx:id="status" prefWidth="120.0" text="Status" />
             <TableColumn fx:id="time" prefWidth="120.0" text=" Time of placement" />
             <TableColumn fx:id="details" prefWidth="120.0" text="Details" />
-            <TableColumn fx:id="amount" prefWidth="120.0" text="Amount" />
+            <TableColumn fx:id="amount" prefWidth="100.0" text="Amount" />
         </columns>
       </TableView>
       <Label layoutX="22.0" layoutY="47.0" text="Total Number of Orders: " />
