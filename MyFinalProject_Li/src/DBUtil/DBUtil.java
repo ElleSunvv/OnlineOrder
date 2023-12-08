@@ -9,7 +9,7 @@ public class DBUtil {
     private static Connection connection = null;
     private static final String connStr = "jdbc:mysql://127.0.0.1:3306/mySql?useUnicode=true&characterEncoding=utf-8&useSSL=false";
     private static final String userName = "root";
-    private static final String passWord = "lyx19991126";
+    private static final String passWord = "password";
     
     //database connection method
     public static void dbConnect() throws SQLException, ClassNotFoundException{
