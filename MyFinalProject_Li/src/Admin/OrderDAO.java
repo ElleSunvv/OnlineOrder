@@ -85,17 +85,6 @@ public class OrderDAO {
         }
 	}
 	
-//	public static void insertOrder(String orderId, String userId, int status, String dishes, String time, double totalCost) throws SQLException, ClassNotFoundException {
-//		String sql = "insert into order values(" + orderId + ", '" + userId + ", '" + status + ", '" + dishes + ", '" + time + ", '" + totalCost +")";
-//		
-//		try {
-//			DBUtil.dbExecuteQuery(sql);
-//		}
-//		catch (SQLException e) {
-//			System.out.println("Exception occured while inserting data");
-//		}
-//	}
-	
 	public static void updateOrderStatus(String orderId, int status) throws ClassNotFoundException, SQLException {
 		String sql = "update test.order set status = " + status + " where order_id = '" + orderId + "'";
 		
